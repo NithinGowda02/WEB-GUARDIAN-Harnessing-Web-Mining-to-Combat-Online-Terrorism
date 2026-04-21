@@ -1,0 +1,12 @@
+flask
+flask-material
+gunicorn
+joblib
+numpy
+pandas
+requests
+beautifulsoup4
+tldextract
+scikit-learn
+tensorflow
+keras
