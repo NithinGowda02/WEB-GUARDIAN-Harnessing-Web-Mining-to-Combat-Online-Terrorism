@@ -9,4 +9,3 @@ beautifulsoup4
 tldextract
 scikit-learn==1.0.2
 tensorflow==2.13.0
-keras==2.13.1
