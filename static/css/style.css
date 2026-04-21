@@ -1,0 +1,13 @@
+body.bg-gradient {
+    background: linear-gradient(135deg, #0d47a1, #1e88e5);
+    min-height: 100vh;
+}
+
+.main-card {
+    border-radius: 16px;
+}
+
+
+.text-break {
+    word-break: break-all;
+}

@@ -1,0 +1,181 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="row justify-content-center mt-3">
+  <div class="col-lg-10">
+    <div class="card shadow-lg main-card">
+      <div class="card-body">
+        <!-- Header -->
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-3">
+          <div>
+            <h3 class="mb-1">
+              Terrorist Activity Detection (Text)
+            </h3>
+            <p class="text-muted mb-0">
+              Enter any message, post, or text snippet to estimate whether it is related to potential terrorist activity.
+            </p>
+          </div>
+          <div class="mt-2 mt-md-0 text-md-end">
+            <span class="badge bg-secondary">
+              Logged in as: {{ username }}
+            </span>
+          </div>
+        </div>
+
+        <!-- Single Message Analysis -->
+        <h5 class="mt-2">Single Text Analysis</h5>
+        <form id="message-form" role="form" method="POST"
+              action="{{ url_for('analyze') }}" class="row g-3 mt-2">
+          <div class="col-12">
+            <label class="form-label fw-semibold">Message</label>
+            <textarea
+              name="msg"
+              class="form-control form-control-lg"
+              rows="4"
+              placeholder="Type or paste the message here..."
+              required
+            >{{ msg if msg else '' }}</textarea>
+            <div class="form-text">
+              Paste text from email, chat, social media, or any other source and click “Analyze Message”.
+            </div>
+          </div>
+          <div class="col-12 d-grid d-md-flex justify-content-md-end">
+            <button type="submit" class="btn btn-primary btn-lg">
+              🧠 Analyze Message
+            </button>
+          </div>
+        </form>
+
+        {% if res %}
+        <!-- Results: donut chart + percentages -->
+        <div class="row mt-4 align-items-center">
+          <!-- Donut chart column -->
+          <div class="col-md-5 text-center mb-4 mb-md-0">
+            <h6 class="text-muted mb-2">Risk Distribution</h6>
+            <canvas id="donutChart" width="260" height="260"></canvas>
+            <div class="mt-3">
+              <span class="badge bg-success me-2">
+                Safe ({{ safe_percentage }}%)
+              </span>
+              <span class="badge bg-danger">
+                Terrorism-related ({{ unsafe_percentage }}%)
+              </span>
+            </div>
+          </div>
+
+          <!-- Confidence and details -->
+          <div class="col-md-7">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <h5 class="mb-0">Prediction Summary</h5>
+              {% if is_safe %}
+                <span class="badge bg-success rounded-pill px-3 py-2">
+                  ✅ NO TERRORIST ACTIVITY
+                </span>
+              {% else %}
+                <span class="badge bg-danger rounded-pill px-3 py-2">
+                  ⚠️ TERRORIST ACTIVITY DETECTED
+                </span>
+              {% endif %}
+            </div>
+
+            <!-- Analyzed text -->
+            <p class="small text-muted mb-2">
+              Analyzed text:<br>
+              <span class="fw-semibold text-break">{{ msg }}</span>
+            </p>
+
+            <!-- Confidence score -->
+            <div class="mb-3">
+              <span class="text-muted">Overall model confidence</span>
+              <h2 class="mb-1">
+                {{ unsafe_percentage if not is_safe else safe_percentage }}%
+              </h2>
+              <div class="progress" style="height: 12px;">
+                <div class="progress-bar bg-success" role="progressbar"
+                     style="width: {{ safe_percentage }}%;"></div>
+                <div class="progress-bar bg-danger" role="progressbar"
+                     style="width: {{ unsafe_percentage }}%;"></div>
+              </div>
+              <p class="small text-muted mt-1 mb-0">
+                Safe vs terrorism-related probability for this text snippet.
+              </p>
+            </div>
+
+            <!-- Small cards for Safe / Terrorism-related -->
+            <div class="row g-3">
+              <div class="col-sm-6">
+                <div class="card border-success h-100">
+                  <div class="card-body py-2">
+                    <h6 class="card-title text-success mb-1">
+                      Safe Probability
+                    </h6>
+                    <p class="mb-0">
+                      <strong>{{ safe_percentage }}%</strong><br>
+                      <span class="small text-muted">
+                        Likelihood that this text is not related to terrorist activity.
+                      </span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="card border-danger h-100">
+                  <div class="card-body py-2">
+                    <h6 class="card-title text-danger mb-1">
+                      Terrorism-related Probability
+                    </h6>
+                    <p class="mb-0">
+                      <strong>{{ unsafe_percentage }}%</strong><br>
+                      <span class="small text-muted">
+                        Likelihood that this text is related to terrorist or violent extremist content.
+                      </span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <p class="small text-muted mt-3 mb-0">
+              This prediction is for research and educational purposes only
+              and should not be used as the sole basis for real-world decisions.
+            </p>
+          </div>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% if res %}
+  <!-- Ensure Chart.js is loaded (if not already included in base.html) -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    const safe = {{ safe_percentage|default(0) }};
+    const unsafe = {{ unsafe_percentage|default(0) }};
+
+    const ctx = document.getElementById('donutChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: ['Safe', 'Terrorism-related'],
+            datasets: [{
+                data: [safe, unsafe],
+                backgroundColor: ['#198754', '#dc3545'],
+                hoverBackgroundColor: ['#157347', '#bb2d3b'],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            cutout: '70%',
+            plugins: {
+                legend: {
+                    display: false
+                }
+            }
+        }
+    });
+  </script>
+{% endif %}
+
+{% endblock %}

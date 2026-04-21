@@ -1,0 +1,228 @@
+{% extends "base.html" %}
+{% block content %}
+
+<!-- Hero section -->
+<div class="row justify-content-center mt-4">
+  <div class="col-lg-10">
+    <div class="card shadow-lg main-card">
+      <div class="card-body">
+        <div class="row align-items-center">
+          <!-- Text side -->
+          <div class="col-md-7">
+            <h3 class="card-title mb-3">
+              FreedomGuard: Website Terrorism / Phishing Detection
+            </h3>
+            <p class="text-muted">
+              FreedomGuard uses advanced machine learning models to analyse URLs
+              and warn you about potentially malicious or terrorism-related websites
+              before you visit them.
+            </p>
+            <p class="text-muted mb-4">
+              Paste any suspicious link and get an instant risk assessment with a
+              clear confidence score and visual indicators.
+            </p>
+            <a href="{{ url_for('predict') }}" class="btn btn-primary btn-lg">
+              🔍 Go to URL Analyzer
+            </a>
+          </div>
+
+          <!-- Hero image -->
+          <div class="col-md-5 text-center mt-4 mt-md-0">
+            <img
+              src="{{ url_for('static', filename='img/ab1.jpg') }}"
+              alt="Secure browsing illustration"
+              class="img-fluid hero-image"
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- About terrorism-related online activity -->
+<div class="row justify-content-center mt-5">
+  <div class="col-lg-10">
+    <h4 class="text-white mb-3">Why monitoring terrorism-related web activity matters</h4>
+    <div class="row g-3">
+      <div class="col-md-4">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <img
+              src="{{ url_for('static', filename='img/ab2png.png') }}"
+              alt="Online propaganda"
+              class="img-fluid rounded mb-3"
+            >
+            <h5 class="card-title">Propaganda & recruitment</h5>
+            <p class="card-text text-muted small">
+              Extremist groups often misuse websites and social media pages to share
+              propaganda, spread hate, and attract new supporters. Detecting such content
+              early helps limit its reach and impact.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <img
+              src="{{ url_for('static', filename='img/asdf.png') }}"
+              alt="Illegal funding"
+              class="img-fluid rounded mb-3"
+            >
+            <h5 class="card-title">Phishing & illegal funding</h5>
+            <p class="card-text text-muted small">
+              Fraudulent donation pages, phishing emails and fake campaigns can be used
+              to collect money under false identities. URL-based analysis helps flag
+              suspicious financial activity that may be linked to terrorism.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <img
+              src="{{ url_for('static', filename='img/asdf1.jpg') }}"
+              alt="Hidden communication"
+              class="img-fluid rounded mb-3"
+            >
+            <h5 class="card-title">Hidden coordination</h5>
+            <p class="card-text text-muted small">
+              Encrypted messaging, coded websites and disguised forums can be used for
+              planning and coordination. Analysing patterns in URLs is one of many tools
+              that can assist investigators and security professionals.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p class="text-muted small mt-3">
+      <strong>Important:</strong> FreedomGuard is designed to support awareness and research.
+      It does not replace law-enforcement processes or professional threat intelligence.
+    </p>
+  </div>
+</div>
+
+<!-- How it works -->
+<div class="row justify-content-center mt-5">
+  <div class="col-lg-10">
+    <h4 class="text-white mb-3">How FreedomGuard works</h4>
+    <div class="row g-3">
+      <div class="col-md-4">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body text-center">
+            <img
+              src="{{ url_for('static', filename='img/aa1.jpg') }}"
+              alt="Paste URL"
+              class="mb-3 how-icon"
+            >
+            <h5 class="card-title">1. Paste the URL</h5>
+            <p class="card-text text-muted">
+              Copy any link from email, chat, or social media and paste it into the analyzer.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body text-center">
+            <img
+              src="{{ url_for('static', filename='img/analysis.png') }}"
+              alt="Analysis"
+              class="mb-3 how-icon"
+            >
+            <h5 class="card-title">2. ML-based inspection</h5>
+            <p class="card-text text-muted">
+              The system extracts key URL features and runs them through trained
+              machine learning models (Random Forest, Gradient Boosting, etc.).
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body text-center">
+            <img
+              src="{{ url_for('static', filename='img/ab1.jpg') }}"
+              alt="Result"
+              class="mb-3 how-icon"
+            >
+            <h5 class="card-title">3. Get a clear verdict</h5>
+            <p class="card-text text-muted">
+              See if the website is Safe or Unsafe with a donut chart and
+              confidence score so you can decide whether to trust it.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Feature highlights -->
+<div class="row justify-content-center mt-5">
+  <div class="col-lg-10">
+    <h4 class="text-white mb-3">Key Features</h4>
+    <div class="row g-3">
+      <div class="col-md-3 col-6">
+        <div class="card h-100 text-center shadow-sm">
+          <div class="card-body">
+            <h6 class="card-title">Real-time Detection</h6>
+            <p class="small text-muted mb-0">
+              Instant risk assessment for every URL you check.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 col-6">
+        <div class="card h-100 text-center shadow-sm">
+          <div class="card-body">
+            <h6 class="card-title">ML-Powered</h6>
+            <p class="small text-muted mb-0">
+              Trained on thousands of phishing and legitimate websites.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 col-6">
+        <div class="card h-100 text-center shadow-sm">
+          <div class="card-body">
+            <h6 class="card-title">Visual Dashboard</h6>
+            <p class="small text-muted mb-0">
+              Donut charts and progress bars for quick interpretation.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 col-6">
+        <div class="card h-100 text-center shadow-sm">
+          <div class="card-body">
+            <h6 class="card-title">Privacy-Friendly</h6>
+            <p class="small text-muted mb-0">
+              URLs are only used for analysis inside your session, not stored.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Disclaimer -->
+<div class="row justify-content-center mt-4 mb-5">
+  <div class="col-lg-10">
+    <div class="alert alert-warning small shadow-sm mb-0">
+      <strong>Note:</strong> FreedomGuard is a research prototype and should be used
+      as an additional safety tool. For critical actions (online banking, government
+      services, etc.), always verify the website address manually even if it appears safe.
+    </div>
+  </div>
+</div>
+
+{% endblock %}
